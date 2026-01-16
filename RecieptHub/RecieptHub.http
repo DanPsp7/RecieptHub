@@ -1,0 +1,6 @@
+@RecieptHub_HostAddress = http://localhost:5245
+
+GET {{RecieptHub_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
