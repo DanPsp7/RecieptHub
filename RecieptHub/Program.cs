@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<RecieptHubContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("RecieptHubDb") ?? throw new InvalidOperationException("Connection string 'RecieptHubDb' not found.")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("RecieptHubDB") ?? throw new InvalidOperationException("Connection string 'RecieptHubDB' not found.")));
 
 builder.Services.AddScoped<IDishRepository, DishRepository>();
 builder.Services.AddScoped<IDishService, DishService>();

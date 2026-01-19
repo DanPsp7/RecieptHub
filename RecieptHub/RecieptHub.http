@@ -1,6 +1,5 @@
-@RecieptHub_HostAddress = http://localhost:5245
+@RecieptHub_HostAddress = http://localhost:5246
 
-GET {{RecieptHub_HostAddress}}/weatherforecast/
-Accept: application/json
+
 
 ###

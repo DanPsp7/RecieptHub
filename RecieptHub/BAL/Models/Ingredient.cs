@@ -6,9 +6,13 @@ public class Ingredient
     
     public string IngredientName { get; set; }
     
-    public int Quantity { get; set; }
+    public int KBJU_one { get; set; }
     
-    public string Notes { get; set; }
-    
+    public ICollection<Dish> Dishes { get; set; }
+
+    public Ingredient()
+    {
+        Dishes = new List<Dish>();
+    }
     
 }

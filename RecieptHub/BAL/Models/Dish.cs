@@ -4,9 +4,16 @@ public class Dish
 {
     public int ID { get; set; }
     
-    public string Name { get; set; }
+    public required string Name { get; set; }
     
     public int CookTime { get; set; }
     
-    public virtual ICollection<Ingredient> Ingredients { get; set; }
+    public int KBJU { get; set; }
+    
+    public ICollection<Ingredient> Ingredients { get; set; }
+
+    public Dish()
+    {
+        Ingredients = new List<Ingredient>();
+    }
 }

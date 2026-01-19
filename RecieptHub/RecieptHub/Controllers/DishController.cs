@@ -21,7 +21,7 @@ public class DishController : Controller
         return _dishService.GetDishes();
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<Dish> GetDishById(int id)
     {
         return await _dishService.GetDishById(id);

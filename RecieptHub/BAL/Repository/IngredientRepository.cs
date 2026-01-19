@@ -27,10 +27,12 @@ public class IngredientRepository : IIngredientRepository
     public async Task UpdateIngredient(int id, Ingredient ingredient)
     {
         _context.Ingredients.Update(ingredient);
+        await _context.SaveChangesAsync();
     }
 
     public async Task DeleteIngredient(int id)
     {
-        _context.Ingredients.Remove(await _context.Ingredients.FindAsync(id));
+        _context.Ingredients.Remove(await _context.Ingredients.FindAsync(id) ?? throw new KeyNotFoundException($"Ingredient not found whith id: {id}"));
+        await _context.SaveChangesAsync();
     }
 }

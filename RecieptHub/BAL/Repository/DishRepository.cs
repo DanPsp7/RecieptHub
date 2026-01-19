@@ -21,25 +21,18 @@ public class DishRepository : IDishRepository
 
     public async Task<Dish> GetDishById(int id)
     {
-
         return await _context.Dishes.FindAsync(id) ?? throw new ArgumentNullException($"Dish not found by id :{id}");
     }
 
     public async Task AddDish(Dish dish)
     {
-        _context.Dishes.Add(dish);
+        await _context.Dishes.AddAsync(dish);
         await _context.SaveChangesAsync();
     }
 
     public async Task UpdateDish(int id, Dish dish)
     {
-        var dishes = await _context.Dishes.FindAsync(id);
-        if (dishes != null)
-        {
-            dish.Name = dishes.Name;
-            dish.CookTime = dishes.CookTime;
-            dish.Ingredients = dishes.Ingredients;
-        }
+        _context.Dishes.Update(dish);
         await _context.SaveChangesAsync();
         
     }

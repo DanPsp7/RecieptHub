@@ -120,3 +120,4 @@ D:\Rider\RecieptHub\RecieptHub\obj\Debug\net9.0\refint\RecieptHub.dll
 D:\Rider\RecieptHub\RecieptHub\obj\Debug\net9.0\RecieptHub.pdb
 D:\Rider\RecieptHub\RecieptHub\obj\Debug\net9.0\RecieptHub.genruntimeconfig.cache
 D:\Rider\RecieptHub\RecieptHub\obj\Debug\net9.0\ref\RecieptHub.dll
+D:\Rider\RecieptHub\RecieptHub\obj\Debug\net9.0\RecieptHub.sourcelink.json
