@@ -4,6 +4,8 @@ using RecieptHub.BLL.Interfaces;
 
 namespace RecieptHub.RecieptHub.Controllers;
 
+[ApiController]
+[Route("[controller]")]
 public class IngredientController : Controller
 {
     
