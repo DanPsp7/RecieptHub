@@ -10,7 +10,7 @@ public interface IDishService
     
     Task AddDish(Dish dish);
     
-    Task UpdateDish(int id, Dish dish);
+    Task UpdateDish(Dish dish);
     
     Task DeleteDish(int id);
 }

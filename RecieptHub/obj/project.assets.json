@@ -8273,24 +8273,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\danil\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\79169\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Rider\\RecieptHub\\RecieptHub\\RecieptHub.csproj",
+      "projectUniqueName": "D:\\Sharp\\RecieptHub\\RecieptHub\\RecieptHub.csproj",
       "projectName": "RecieptHub",
-      "projectPath": "D:\\Rider\\RecieptHub\\RecieptHub\\RecieptHub.csproj",
-      "packagesPath": "C:\\Users\\danil\\.nuget\\packages\\",
-      "outputPath": "D:\\Rider\\RecieptHub\\RecieptHub\\obj\\",
+      "projectPath": "D:\\Sharp\\RecieptHub\\RecieptHub\\RecieptHub.csproj",
+      "packagesPath": "C:\\Users\\79169\\.nuget\\packages\\",
+      "outputPath": "D:\\Sharp\\RecieptHub\\RecieptHub\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\danil\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\79169\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8298,6 +8293,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

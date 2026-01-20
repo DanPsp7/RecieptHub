@@ -8,11 +8,7 @@ public class Ingredient
     
     public int KBJU_one { get; set; }
     
-    public ICollection<Dish> Dishes { get; set; }
+    public ICollection<Dish> Dishes { get; set; } = new List<Dish>();
 
-    public Ingredient()
-    {
-        Dishes = new List<Dish>();
-    }
     
 }

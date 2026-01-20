@@ -10,10 +10,7 @@ public class Dish
     
     public int KBJU { get; set; }
     
-    public ICollection<Ingredient> Ingredients { get; set; }
+    public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
-    public Dish()
-    {
-        Ingredients = new List<Ingredient>();
-    }
+    
 }

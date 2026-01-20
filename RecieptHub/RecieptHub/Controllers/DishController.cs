@@ -34,9 +34,9 @@ public class DishController : Controller
     }
     
     [HttpPut]
-    public async Task UpdateDish(int id, Dish dish)
+    public async Task UpdateDish(Dish dish)
     {
-        await _dishService.UpdateDish(id, dish);
+        await _dishService.UpdateDish(dish);
     }
 
     [HttpDelete]

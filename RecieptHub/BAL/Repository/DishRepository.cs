@@ -30,7 +30,7 @@ public class DishRepository : IDishRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateDish(int id, Dish dish)
+    public async Task UpdateDish(Dish dish)
     {
         _context.Dishes.Update(dish);
         await _context.SaveChangesAsync();

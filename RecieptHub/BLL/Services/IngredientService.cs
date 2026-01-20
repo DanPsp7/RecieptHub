@@ -24,9 +24,9 @@ public class IngredientService : IIngredientService
         await _repository.AddIngredient(ingredient);
     }
 
-    public async Task UpdateIngredient(int id, Ingredient ingredient)
+    public async Task UpdateIngredient(Ingredient ingredient)
     {
-        await _repository.UpdateIngredient(id, ingredient);
+        await _repository.UpdateIngredient(ingredient);
     }
 
     public async Task DeleteIngredient(int id)

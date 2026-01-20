@@ -29,9 +29,9 @@ public class DishService : IDishService
         await _dishRepository.AddDish(dish);
     }
 
-    public async Task UpdateDish(int id, Dish dish)
+    public async Task UpdateDish(Dish dish)
     {
-        await _dishRepository.UpdateDish(id, dish);
+        await _dishRepository.UpdateDish(dish);
     }
 
     public async Task DeleteDish(int id)

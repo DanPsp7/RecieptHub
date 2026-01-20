@@ -22,9 +22,10 @@ public class IngredientRepository : IIngredientRepository
     public async Task AddIngredient(Ingredient ingredient)
     {
         await _context.Ingredients.AddAsync(ingredient);
+        await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateIngredient(int id, Ingredient ingredient)
+    public async Task UpdateIngredient(Ingredient ingredient)
     {
         _context.Ingredients.Update(ingredient);
         await _context.SaveChangesAsync();

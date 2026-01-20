@@ -8,7 +8,7 @@ public interface IIngredientService
     
     Task AddIngredient(Ingredient ingredient);
     
-    Task UpdateIngredient(int id,Ingredient ingredient);
+    Task UpdateIngredient(Ingredient ingredient);
     
     Task DeleteIngredient(int id);
     

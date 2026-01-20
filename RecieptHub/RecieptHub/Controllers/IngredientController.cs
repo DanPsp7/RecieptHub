@@ -29,9 +29,9 @@ public class IngredientController : Controller
     }
 
     [HttpPut]
-    public async Task UpdateIngredient(int id, Ingredient ingredient)
+    public async Task UpdateIngredient(Ingredient ingredient)
     {
-        await _ingredientService.UpdateIngredient(id, ingredient);
+        await _ingredientService.UpdateIngredient(ingredient);
     }
 
     [HttpDelete]
