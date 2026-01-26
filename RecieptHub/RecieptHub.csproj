@@ -25,4 +25,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="9.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="DTO\" />
+    </ItemGroup>
+
 </Project>
