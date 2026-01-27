@@ -39,7 +39,7 @@ public class DishRepository : IDishRepository
 
     public async Task DeleteDish(int id)
     {
-        _context.Dishes.Remove(await _context.Dishes.FirstOrDefaultAsync(d => d.ID == id) ?? throw new Exception($"Dish not found id:{id}"));
+        _context.Dishes.Remove(await _context.Dishes.FirstOrDefaultAsync(d => d.Id == id) ?? throw new Exception($"Dish not found id:{id}"));
         await _context.SaveChangesAsync();
         
     }
