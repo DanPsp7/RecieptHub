@@ -30,9 +30,6 @@ builder.Services.AddScoped<IIngredientService, IngredientService>();
 builder.Services.AddScoped<IDishIngredientRepository, DishIngredientRepository>();
 builder.Services.AddScoped<IDishIngredientService, DishIngredientService>();
 
-builder.Services.AddScoped<IMenuDayRepository, MenuDayRepository>();
-builder.Services.AddScoped<IMenuDayService, MenuDayService>();
-
 builder.Services.AddScoped<IMealRepository, MealRepository>();
 builder.Services.AddScoped<IMealService, MealService>();
 
@@ -41,11 +38,6 @@ builder.Services.AddScoped<IWeeklyMenuService, WeeklyMenuService>();
 
 builder.Services.AddScoped<IWeeklyMenuDayRepository, WeeklyMenuDayRepository>();
 builder.Services.AddScoped<IWeeklyMenuDayService, WeeklyMenuDayService>();
-
-builder.Services.AddScoped<INutritionTotalRepository, NutritionTotalRepository>();
-builder.Services.AddScoped<INutritionTotalService, NutritionTotalService>(); 
-
-//builder.Services.AddAutoMapper(typeof(TaskTrackerProfile));
 
 builder.Services.AddSwaggerGen(c =>
 {

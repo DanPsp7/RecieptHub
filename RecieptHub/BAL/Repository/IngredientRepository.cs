@@ -19,6 +19,11 @@ public class IngredientRepository : IIngredientRepository
         return await _context.Ingredients.ToListAsync();
     }
 
+    public async Task<Ingredient?> GetById(int id)
+    {
+        return await _context.Ingredients.FindAsync(id);
+    }
+
     public async Task AddIngredient(Ingredient ingredient)
     {
         await _context.Ingredients.AddAsync(ingredient);
@@ -27,13 +32,23 @@ public class IngredientRepository : IIngredientRepository
 
     public async Task UpdateIngredient(Ingredient ingredient)
     {
-        _context.Ingredients.Update(ingredient);
+        var entry = await _context.Ingredients.FindAsync(ingredient.Id);
+        if (entry == null) return;
+        entry.Name = ingredient.Name;
+        entry.Calories = ingredient.Calories;
+        entry.Proteins = ingredient.Proteins;
+        entry.Fats = ingredient.Fats;
+        entry.Carbohydrates = ingredient.Carbohydrates;
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteIngredient(int id)
     {
-        _context.Ingredients.Remove(await _context.Ingredients.FindAsync(id) ?? throw new KeyNotFoundException($"Ingredient not found whith id: {id}"));
-        await _context.SaveChangesAsync();
+        var ingredient = await _context.Ingredients.FindAsync(id);
+        if (ingredient != null)
+        {
+            _context.Ingredients.Remove(ingredient);
+            await _context.SaveChangesAsync();
+        }
     }
 }

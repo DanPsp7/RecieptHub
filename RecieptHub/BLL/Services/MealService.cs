@@ -13,8 +13,8 @@ public class MealService : IMealService
         _repository = repository;
     }
 
-    public async Task<List<Meal>> GetByMenuDayId(int menuDayId) =>
-        await _repository.GetByMenuDayId(menuDayId);
+    public async Task<List<Meal>> GetByWeeklyMenuDayId(int menuDayId) =>
+        await _repository.GetByWeeklyMenuDayId(menuDayId);
 
     public async Task<Meal?> GetById(int id) =>
         await _repository.GetById(id);

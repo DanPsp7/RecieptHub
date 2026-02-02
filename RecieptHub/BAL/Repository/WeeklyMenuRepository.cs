@@ -18,6 +18,13 @@ public class WeeklyMenuRepository : IWeeklyMenuRepository
     {
         return await _context.WeeklyMenus
             .Include(wm => wm.WeeklyMenuDays)
+                .ThenInclude(wmd => wmd.BreakfastMeal!).ThenInclude(m => m.Dish)
+            .Include(wm => wm.WeeklyMenuDays)
+                .ThenInclude(wmd => wmd.LunchMeal!).ThenInclude(m => m.Dish)
+            .Include(wm => wm.WeeklyMenuDays)
+                .ThenInclude(wmd => wmd.DinnerMeal!).ThenInclude(m => m.Dish)
+            .Include(wm => wm.WeeklyMenuDays)
+                .ThenInclude(wmd => wmd.SnackMeal!).ThenInclude(m => m.Dish)
             .OrderByDescending(wm => wm.WeekStart)
             .ToListAsync();
     }
@@ -26,13 +33,13 @@ public class WeeklyMenuRepository : IWeeklyMenuRepository
     {
         return await _context.WeeklyMenus
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.BreakfastDish)
+                .ThenInclude(wmd => wmd.BreakfastMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.LunchDish)
+                .ThenInclude(wmd => wmd.LunchMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.DinnerDish)
+                .ThenInclude(wmd => wmd.DinnerMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.SnackDish)
+                .ThenInclude(wmd => wmd.SnackMeal!).ThenInclude(m => m.Dish)
             .FirstOrDefaultAsync(wm => wm.Id == id);
     }
 
@@ -40,13 +47,13 @@ public class WeeklyMenuRepository : IWeeklyMenuRepository
     {
         return await _context.WeeklyMenus
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.BreakfastDish)
+                .ThenInclude(wmd => wmd.BreakfastMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.LunchDish)
+                .ThenInclude(wmd => wmd.LunchMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.DinnerDish)
+                .ThenInclude(wmd => wmd.DinnerMeal!).ThenInclude(m => m.Dish)
             .Include(wm => wm.WeeklyMenuDays)
-            .ThenInclude(wmd => wmd.SnackDish)
+                .ThenInclude(wmd => wmd.SnackMeal!).ThenInclude(m => m.Dish)
             .FirstOrDefaultAsync(wm => wm.IsActive);
     }
 
@@ -58,16 +65,22 @@ public class WeeklyMenuRepository : IWeeklyMenuRepository
 
     public async Task Update(WeeklyMenu weeklyMenu)
     {
-        _context.WeeklyMenus.Update(weeklyMenu);
+        var entry = await _context.WeeklyMenus.FindAsync(weeklyMenu.Id);
+        if (entry == null) return;
+        entry.Name = weeklyMenu.Name;
+        entry.WeekStart = weeklyMenu.WeekStart;
+        entry.WeekEnd = weeklyMenu.WeekEnd;
+        entry.IsActive = weeklyMenu.IsActive;
         await _context.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
     {
-        var entity = await _context.WeeklyMenus.FindAsync(id);
-        if (entity == null)
-            throw new KeyNotFoundException($"WeeklyMenu not found with id: {id}");
-        _context.WeeklyMenus.Remove(entity);
-        await _context.SaveChangesAsync();
+        var menu = await _context.WeeklyMenus.FindAsync(id);
+        if (menu != null)
+        {
+            _context.WeeklyMenus.Remove(menu);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -21,7 +21,9 @@ public class DishRepository : IDishRepository
 
     public async Task<Dish> GetDishById(int id)
     {
-        return await _context.Dishes.FindAsync(id) ?? throw new ArgumentNullException($"Dish not found by id :{id}");
+        return await _context.Dishes
+            .Include(d => d.DishIngredients)
+            .FirstOrDefaultAsync(d => d.Id == id) ?? throw new InvalidOperationException();
     }
 
     public async Task AddDish(Dish dish)
@@ -32,15 +34,25 @@ public class DishRepository : IDishRepository
 
     public async Task UpdateDish(Dish dish)
     {
-        _context.Dishes.Update(dish);
+        var entry = await _context.Dishes.FindAsync(dish.Id);
+        if (entry == null) throw new InvalidOperationException("Dish not found.");
+        entry.Name = dish.Name;
+        entry.CookTime = dish.CookTime;
+        entry.Recipe = dish.Recipe;
+        entry.CalculatedCalories = dish.CalculatedCalories;
+        entry.CalculatedProteins = dish.CalculatedProteins;
+        entry.CalculatedFats = dish.CalculatedFats;
+        entry.CalculatedCarbohydrates = dish.CalculatedCarbohydrates;
         await _context.SaveChangesAsync();
-        
     }
 
     public async Task DeleteDish(int id)
     {
-        _context.Dishes.Remove(await _context.Dishes.FirstOrDefaultAsync(d => d.Id == id) ?? throw new Exception($"Dish not found id:{id}"));
-        await _context.SaveChangesAsync();
-        
+        var dish = await _context.Dishes.FindAsync(id);
+        if (dish != null)
+        {
+            _context.Dishes.Remove(dish);
+            await _context.SaveChangesAsync();
+        }
     }
 }

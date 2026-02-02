@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using RecieptHub.BAL.Models;
 using RecieptHub.BLL.Interfaces;
+using RecieptHub.DTO;
 
 namespace RecieptHub.RecieptHub.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class IngredientController : Controller
+[Route("api/[controller]")]
+public class IngredientController : ControllerBase
 {
-    
     private readonly IIngredientService _ingredientService;
 
     public IngredientController(IIngredientService ingredientService)
@@ -17,27 +17,50 @@ public class IngredientController : Controller
     }
 
     [HttpGet]
-    public async Task<List<Ingredient>> GetIngredients()
+    public async Task<ActionResult<List<Ingredient>>> GetIngredients()
     {
-        return await _ingredientService.GetIngredients();
+        var list = await _ingredientService.GetIngredients();
+        return Ok(list);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<Ingredient>> GetById(int id)
+    {
+        var ingredient = await _ingredientService.GetById(id);
+        if (ingredient == null) return NotFound();
+        return Ok(ingredient);
     }
 
     [HttpPost]
-    public async Task AddIngredient(Ingredient ingredient)
+    public async Task Create([FromBody] IngredientCreateDto ingredient)
     {
-        await _ingredientService.AddIngredient(ingredient);
+        var entity = new Ingredient
+        {
+            Name = ingredient.Name,
+            Calories = ingredient.Calories,
+            Fats = ingredient.Fats,
+            Proteins = ingredient.Proteins,
+            Carbohydrates = ingredient.Carbohydrates,
+            
+        };
+
+
+        await _ingredientService.AddIngredient(entity);
+        
     }
 
-    [HttpPut]
-    public async Task UpdateIngredient(Ingredient ingredient)
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult> Update(int id, [FromBody] Ingredient ingredient)
     {
+        if (id != ingredient.Id) return BadRequest();
         await _ingredientService.UpdateIngredient(ingredient);
+        return NoContent();
     }
 
-    [HttpDelete]
-    public async Task DeleteIngredient(int id)
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete(int id)
     {
         await _ingredientService.DeleteIngredient(id);
+        return NoContent();
     }
-    
 }

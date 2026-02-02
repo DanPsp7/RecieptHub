@@ -16,10 +16,9 @@ public class DishIngredientRepository : IDishIngredientRepository
 
     public async Task<List<DishIngredient>> GetByDishId(int dishId)
     {
-        return await _context.DishIngredients
-            .Include(di => di.Ingredient)
-            .Where(di => di.DishId == dishId)
-            .ToListAsync();
+       return await _context.DishIngredients
+           .Where(d => d.DishId == dishId)
+           .ToListAsync();
     }
 
     public async Task<DishIngredient?> GetById(int id)
@@ -38,16 +37,23 @@ public class DishIngredientRepository : IDishIngredientRepository
 
     public async Task Update(DishIngredient dishIngredient)
     {
-        _context.DishIngredients.Update(dishIngredient);
+        var entry = await _context.DishIngredients.FindAsync(dishIngredient.Id);
+        if (entry == null) return;
+        entry.QuantityGrams = dishIngredient.QuantityGrams;
+        entry.CaloriesInDish = dishIngredient.CaloriesInDish;
+        entry.ProteinsInDish = dishIngredient.ProteinsInDish;
+        entry.FatsInDish = dishIngredient.FatsInDish;
+        entry.CarbohydratesInDish = dishIngredient.CarbohydratesInDish;
         await _context.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
     {
-        var entity = await _context.DishIngredients.FindAsync(id);
-        if (entity == null)
-            throw new KeyNotFoundException($"DishIngredient not found with id: {id}");
-        _context.DishIngredients.Remove(entity);
-        await _context.SaveChangesAsync();
+        var di = await _context.DishIngredients.FindAsync(id);
+        if (di != null)
+        {
+            _context.DishIngredients.Remove(di);
+            await _context.SaveChangesAsync();
+        }
     }
 }

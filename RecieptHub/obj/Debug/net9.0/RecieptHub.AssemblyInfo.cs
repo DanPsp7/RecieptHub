@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RecieptHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+530fd708003528adf9ba1bdc34fb12ffb8e2948a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ea15397b614918c76ef4157bbfb9a09ccfc9d9a")]
 [assembly: System.Reflection.AssemblyProductAttribute("RecieptHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RecieptHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using RecieptHub.BAL.Data;
 using RecieptHub.BAL.Models;
 using RecieptHub.BLL.Interfaces;
+using RecieptHub.DTO;
 
 namespace RecieptHub.RecieptHub.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class DishController : Controller
+[Route("api/[controller]")]
+public class DishController : ControllerBase
 {
     private readonly IDishService _dishService;
 
@@ -15,33 +15,47 @@ public class DishController : Controller
     {
         _dishService = dishService;
     }
+
     [HttpGet]
-    public Task<List<Dish>> GetDishes()
+    public async Task<List<Dish>> GetDishes()
     {
-        return _dishService.GetDishes();
+        return await _dishService.GetDishes();
     }
 
-    [HttpGet("{id}")]
-    public async Task<Dish> GetDishById(int id)
+    [HttpGet("{id:int}")]
+    public async Task <Dish> GetDishById(int id)
     {
         return await _dishService.GetDishById(id);
     }
-    
+
     [HttpPost]
-    public async Task AddDish(Dish dish)
+    public async Task Create([FromBody] DishCreateDto dish)
     {
-        await _dishService.AddDish(dish);
-    }
-    
-    [HttpPut]
-    public async Task UpdateDish(Dish dish)
-    {
-        await _dishService.UpdateDish(dish);
+        var newDish = new Dish()
+        {
+            Name = dish.Name,
+            CookTime = dish.CookTime,
+            Recipe = dish.Recipe
+        };
+        await _dishService.AddDish(newDish);
+        
     }
 
-    [HttpDelete]
-    public async Task DeleteDish(int id)
+    [HttpPut("{id:int}")]
+    public async Task Update(int id, [FromBody] DishUpdateDto dish)
+    {
+        var oldDish = await _dishService.GetDishById(id);
+        oldDish.Name = dish.Name;
+        oldDish.CookTime = (int)dish.CookTime!;
+        oldDish.Recipe = dish.Recipe;
+        await _dishService.UpdateDish(oldDish);
+
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task Delete(int id)
     {
         await _dishService.DeleteDish(id);
+        
     }
 }

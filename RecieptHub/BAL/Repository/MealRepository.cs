@@ -14,19 +14,26 @@ public class MealRepository : IMealRepository
         _context = context;
     }
 
-    public async Task<List<Meal>> GetByMenuDayId(int menuDayId)
+    public async Task<List<Meal>> GetByWeeklyMenuDayId(int menuDayId)
     {
-        return await _context.Meals
-            .Include(m => m.Dish)
-            .Where(m => m.MenuDayId == menuDayId)
-            .OrderBy(m => m.MealType)
-            .ToListAsync();
+        var day = await _context.WeeklyMenuDays
+            .Include(wmd => wmd.BreakfastMeal!).ThenInclude(m => m.Dish)
+            .Include(wmd => wmd.LunchMeal!).ThenInclude(m => m.Dish)
+            .Include(wmd => wmd.DinnerMeal!).ThenInclude(m => m.Dish)
+            .Include(wmd => wmd.SnackMeal!).ThenInclude(m => m.Dish)
+            .FirstOrDefaultAsync(wmd => wmd.Id == menuDayId);
+        if (day == null) return new List<Meal>();
+        var list = new List<Meal>();
+        if (day.BreakfastMeal != null) list.Add(day.BreakfastMeal);
+        if (day.LunchMeal != null) list.Add(day.LunchMeal);
+        if (day.DinnerMeal != null) list.Add(day.DinnerMeal);
+        if (day.SnackMeal != null) list.Add(day.SnackMeal);
+        return list;
     }
 
     public async Task<Meal?> GetById(int id)
     {
         return await _context.Meals
-            .Include(m => m.MenuDay)
             .Include(m => m.Dish)
             .FirstOrDefaultAsync(m => m.Id == id);
     }
@@ -39,16 +46,20 @@ public class MealRepository : IMealRepository
 
     public async Task Update(Meal meal)
     {
-        _context.Meals.Update(meal);
+        var entry = await _context.Meals.FindAsync(meal.Id);
+        if (entry == null) return;
+        entry.MealType = meal.MealType;
+        entry.DishId = meal.DishId;
         await _context.SaveChangesAsync();
     }
 
     public async Task Delete(int id)
     {
-        var entity = await _context.Meals.FindAsync(id);
-        if (entity == null)
-            throw new KeyNotFoundException($"Meal not found with id: {id}");
-        _context.Meals.Remove(entity);
-        await _context.SaveChangesAsync();
+        var meal = await _context.Meals.FindAsync(id);
+        if (meal != null)
+        {
+            _context.Meals.Remove(meal);
+            await _context.SaveChangesAsync();
+        }
     }
 }

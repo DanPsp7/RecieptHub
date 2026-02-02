@@ -13,12 +13,12 @@ public class IngredientService : IIngredientService
         _repository = repository;
     }
 
-    public async Task<List<Ingredient>> GetIngredients()
-    {
-        var ingredients = await _repository.GetIngredients();
-        return ingredients;
-    }
-    
+    public async Task<List<Ingredient>> GetIngredients() =>
+        await _repository.GetIngredients();
+
+    public async Task<Ingredient?> GetById(int id) =>
+        await _repository.GetById(id);
+
     public async Task AddIngredient(Ingredient ingredient)
     {
         await _repository.AddIngredient(ingredient);

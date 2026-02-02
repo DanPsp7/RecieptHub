@@ -1,9 +1,6 @@
 namespace RecieptHub.BAL.Models;
 
-/// <summary>
-/// A weekly menu template. Has one entry per day of the week (WeeklyMenuDay)
-/// with breakfast, lunch, and dinner dishes for each day.
-/// </summary>
+
 public class WeeklyMenu
 {
     public int Id { get; set; }
